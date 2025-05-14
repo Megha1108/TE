@@ -1,0 +1,80 @@
+#SELECTION SORT 
+
+def Selection_SortDEC(array): 
+    for i in range(0, len(array) - 1): 
+        largest = i 
+        for j in range(i + 1, len(array)): 
+            if array[j] > array[largest]: 
+                largest = j 
+        array[i], array[largest] = array[largest], array[i] 
+
+
+def Selection_SortASC(array): 
+    for i in range(0, len(array) - 1): 
+        smallest = i 
+        for j in range(i + 1, len(array)): 
+            if array[j] < array[smallest]: 
+                smallest = j 
+        array[i], array[smallest] = array[smallest], array[i] 
+
+
+array = input('Enter the list of numbers: ').split() 
+array = [int(x) for x in array] 
+
+
+#print("\n1.ascending order\n2.descending order") 
+#ch=int(input("enter your choice: ")) 
+
+
+while True:
+        print("\nChoose the selection sort order: \n1. Ascending\n2. Descending\n3. Exit")
+        choice = int(input("Enter your choice = "))
+
+        if choice == 1:
+            Selection_SortASC(array)
+            #Selection_Sort(array) 
+            print('List after sorting is : ', end='') 
+            print(array)
+
+        elif choice == 2:
+            Selection_SortDEC(array)
+            #Selection_Sort(array) 
+            print('List after sorting is : ', end='') 
+            print(array)
+
+        elif choice == 3:
+            print("Exiting the program")
+            break
+
+        else:
+            print("Invalid choice")
+ 
+
+#Selection_Sort(array) 
+#print('List after sorting is : ', end='') 
+#print(array) 
+
+
+'''OUTPUT 
+Enter the list of numbers: 4 7 5 1 3 9
+
+Choose the selection sort order: 
+1. Ascending
+2. Descending
+3. Exit
+Enter your choice = 1
+List after sorting is : [1, 3, 4, 5, 7, 9]
+
+Choose the selection sort order: 
+1. Ascending
+2. Descending
+3. Exit
+Enter your choice = 2
+List after sorting is : [9, 7, 5, 4, 3, 1]
+
+Choose the selection sort order: 
+1. Ascending
+2. Descending
+3. Exit
+Enter your choice = 3
+Exiting the program'''

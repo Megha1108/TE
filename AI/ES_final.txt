@@ -1,0 +1,50 @@
+# Define diseases and their associated symptoms 
+
+diseases = { 
+    "Alzheimer's Disease": ['memory_loss', 'confusion', 'personality_changes', 'mood_swings', 'hallucination', 'jumbled_speech', 'general_discontent'], 
+    "Common Cold": ['runny_nose', 'sneezing', 'sore_throat', 'watering_eyes', 'fever', 'sinus_pressure', 'headache', 'fatigue', 'body_ache'], 
+    "Influenza": ['fever', 'body_ache', 'chills', 'sneezing', 'sore_throat', 'watering_eyes', 'sinus_pressure', 'headache', 'fatigue', 'dehydration'], 
+    "Allergies": ['itchy_eyes', 'rash', 'fever', 'swollen_airways', 'skin_irritation', 'shock', 'sneezing', 'wheezing', 'difficulty_breathing', 'cough', 'nausea'], 
+    "COVID": ['difficulty_breathing', 'chills', 'cough', 'fever', 'fatigue', 'loss_taste_or_smell', 'nausea', 'diarrhea', 'sore_throat', 'body_ache'], 
+    # Add more diseases and associated symptoms as needed 
+} 
+
+
+def diagnose(symptoms, threshold=0.6):
+  possible_diseases = [] 
+  for disease, disease_symptoms in diseases.items(): 
+    matching_symptoms = sum(symptom in symptoms for symptom in disease_symptoms) 
+    match_percentage = matching_symptoms / len(disease_symptoms) 
+    if match_percentage >= threshold: 
+      possible_diseases.append((disease, match_percentage)) 
+  return possible_diseases 
+  
+
+# Function to prompt user for symptoms 
+def get_symptoms(existing_symptoms): 
+  symptoms = set() 
+  print("Please answer with 'yes' or 'no'.") 
+  # Iterate over all symptoms 
+  for symptom in set(symptom for disease_symptoms in diseases.values() for symptom in disease_symptoms): 
+    # Ask about the symptom if it's not already present 
+    if symptom not in existing_symptoms: 
+      answer = input(f"Do you have {symptom.replace('_', ' ')}? ").strip().lower() 
+      while answer not in ['yes', 'no']: 
+        print("Invalid input. Please answer with 'yes' or 'no'.") 
+        answer = input(f"Do you have {symptom.replace('_', ' ')}? ").strip().lower() 
+      if answer == 'yes': 
+        symptoms.add(symptom) 
+  return symptoms 
+
+
+if __name__ == "__main__": 
+  # Prompt user for symptoms 
+  input_symptoms = get_symptoms(set()) 
+  # Get diagnosis 
+  possible_diseases = diagnose(input_symptoms) 
+  if possible_diseases: 
+    print("Possible diseases:") 
+    for disease, match_percentage in possible_diseases: 
+      print(f"- {disease} (Match Percentage: {match_percentage:.0%})") 
+  else: 
+    print("No matching diseases found.")

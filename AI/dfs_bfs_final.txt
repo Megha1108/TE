@@ -1,0 +1,68 @@
+from collections import deque
+
+def dfs(visited, graph, node):
+    if node not in visited:
+        print(node, end=' ')
+        visited.add(node)
+        for neighbour in graph[node]:
+            dfs(visited, graph, neighbour)
+
+
+def bfs(visited, graph, node):
+    queue = deque([node]) #initialize the queue with starting node
+
+    while queue:
+        s = queue.popleft()
+        if s not in visited:
+            print(s, end=' ')
+            visited.add(s)
+            for neighbour in graph[s]:
+                if neighbour not in visited:
+                    queue.append(neighbour)
+
+
+def create_graph():
+    graph = {}
+    num_nodes = int(input("enter the number of nodes = "))
+
+    for i in range(num_nodes):
+        node_label = chr(ord('A')+i)  # Conversion to ASCII
+        edges = int(input("enter the number of edges for node {} : ".format(node_label)))
+        graph[node_label] = []
+        for j in range(edges):
+            neighbour_label = input("enter neighbor for node {} : ".format(node_label))
+            graph[node_label].append(neighbour_label)
+
+    return graph
+
+def main():
+    visited = set()
+
+    print("create a graph")
+    graph = create_graph()
+
+    while True:
+        print("\nChoose the traversal method: \n1. DFS\n2. BFS\n3. Exit")
+        choice = int(input("Enter your choice = "))
+
+        if choice == 1:
+            visited.clear()
+            start_node = input("Enter the starting node = ")
+            print("DFS traversal : ")
+            dfs(visited, graph, start_node)
+
+        elif choice == 2:
+            visited.clear()
+            start_node = input("Enter the starting node = ")
+            print("BFS traversal : ")
+            bfs(visited, graph, start_node)
+
+        elif choice == 3:
+            print("Exiting the program")
+            break
+
+        else:
+            print("Invalid choice")
+
+if __name__ == "__main__":
+    main()

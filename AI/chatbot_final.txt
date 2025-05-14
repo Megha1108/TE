@@ -1,0 +1,56 @@
+import random
+
+# Responses for various user inputs
+tour_responses = {
+    "hi": ["Hello! How can I assist you today?", "Hi there! How can I help you with your tour planning?"],
+    "hello": ["Hello! How can I assist you today?", "Hi there! How can I help you with your tour planning?"],
+    "help": ["Sure, I'm here to help. What do you need assistance with?", "Of course! What can I assist you with?"],
+    "bye": ["Goodbye! If you need further assistance, feel free to ask.", "Bye! Have a great day ahead!"],
+    "popular": ["Popular tourist destinations in India include the Taj Mahal, Goa, Kerala, and Rajasthan."],
+    "accommodation": ["To find accommodation, you can check websites like Booking.com or Airbnb."],
+    "transportation": ["Transportation options in India include trains, buses, and domestic flights depending on your destination."],
+    "best time": ["The best time to visit India varies depending on the region, but generally, October to March is plesant"],
+    "memorable": ["For a memorable experience, consider exploring offbeat destinations and local cuisines."],
+    "itinerary": ["To make the most of your tour, plan your itinerary in advance and prioritize must-see attractions."],
+    "essentials": ["Don't forget to pack essentials like sunscreen, comfortable shoes, and a camera for capturing memories."],
+    "activities": ["Consider taking part in activities like trekking, wildlife safaris, and cultural festivals for a unique experience."],
+    "currency": ["currency used in India in RUPEES. 1 Dollar = 75 Rupees"],
+    "cuisine": ["India has a huge variety of cuisines, from north to south, east to west you can find a lot of varieties"],
+    "taj mahal": ["Taj Mahal is located in Uttar Pradesh in India.", "Taj Mahal is located in Agra, Uttar Pradesh"]
+    
+}
+
+# Default response for unrecognized inputs
+default_response = "I'm a chatbot and I'm learning new things every day."
+
+def respond_to_user_input(user_input):
+    
+    #Function to respond to user input based on predefined responses or default response.
+    
+    # Convert user input to lowercase for easier comparison
+    user_input_lower = user_input.lower()
+    
+    # Check if the user input matches any predefined responses
+    for keyword in tour_responses:
+        if keyword in user_input_lower:
+            return random.choice(tour_responses[keyword])
+    
+    # Return default response for unrecognized inputs
+    return default_response
+
+def main():
+    print("Welcome to the India tour Chatbot!")
+    print("Type 'bye' or 'goodbye' to exit.")
+
+    while True:
+        user_input = input("You: ")
+        if user_input:
+            response = respond_to_user_input(user_input)
+            print("Tour Chatbot:", response)
+
+            # Exit the loop if user inputs 'bye' or 'goodbye'
+            if "bye" in user_input.lower() or "goodbye" in user_input.lower():
+                break
+
+if __name__ == "__main__":
+    main()

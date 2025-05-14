@@ -1,0 +1,68 @@
+def printConfiguration(colorArray): 
+    print("The assigned colors are as follows:") 
+    for i in range(len(colorArray)): 
+        print("Vertex:", i + 1, "Color:", colorArray[i]) 
+
+
+#A function that will check if the current colorArray of the graph is safe or not. 
+def isSafe(graph, colorArray): 
+    for i in range(len(graph)): 
+        for j in range(i + 1, len(graph)): 
+            if graph[i][j] and colorArray[j] == colorArray[i]: 
+                return False 
+    return True 
+
+
+def graphColoringAlgorithm(graph, m, i, colorArray): 
+    colors = ["R", "G", "B"]  # List of colors 
+    # If we have reached the last vertex then check and print the configuration. 
+    if i == len(graph): 
+        if isSafe(graph, colorArray): 
+            printConfiguration(colorArray) 
+            return True 
+        return False 
+    # Assigning color to the vertex and recursively calling the function. 
+    for color in colors: 
+        colorArray[i] = color 
+        if graphColoringAlgorithm(graph, m, i + 1, colorArray): 
+            return True 
+        colorArray[i] = None 
+    return False 
+
+
+if __name__ == '__main__': 
+    # Taking input for the graph 
+    num_vertices = int(input("Enter the number of vertices: ")) 
+    graph = [] 
+    print("Enter the adjacency matrix:") 
+    for _ in range(num_vertices): 
+        row = list(map(int, input().split())) 
+        graph.append(row) 
+
+    # Taking input for the number of colors 
+    m = int(input("Enter the number of colors: ")) 
+
+    # Initially the color list is initialized with None. 
+    colorArray = [None for _ in range(len(graph))] 
+    if graphColoringAlgorithm(graph, m, 0, colorArray): 
+        print("Coloring is possible!") 
+    else: 
+        print("Coloring is not possible!")
+
+
+
+'''OUTPUT
+
+Enter the number of vertices: 4
+Enter the adjacency matrix:
+0 1 1 1
+1 0 0 1
+1 0 0 1
+1 1 1 0
+Enter the number of colors: 3
+The assigned colors are as follows:
+Vertex: 1 Color: R
+Vertex: 2 Color: G
+Vertex: 3 Color: G
+Vertex: 4 Color: B
+Coloring is possible!'''
